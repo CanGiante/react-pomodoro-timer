@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
-  /******************
+  /*******************
    *   Setup timer   *
    ******************/
   const initialSession = 25;
@@ -15,14 +15,14 @@ function App() {
   const initialCount = initialSession * oneMinute;
   const [count, setCount] = useState(initialCount);
 
-  /*****************
+  /******************
    *   Beep sound   *
    *****************/
   const beep = useRef(null);
   let sound =
     "https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav";
 
-  /*******************
+  /********************
    *  Handle session  *
    *******************/
   const handleSessionLength = (e) => {
@@ -50,7 +50,7 @@ function App() {
     }
   };
 
-  /*******************
+  /********************
    *   Handle break   *
    *******************/
   let initialBreakTime = true;
@@ -80,7 +80,7 @@ function App() {
     }
   };
 
-  /*****************
+  /******************
    *   Handle run   *
    *****************/
   const [isRunning, setIsRunning] = useState(false);
@@ -112,7 +112,7 @@ function App() {
     isRunning ? 1000 : null
   );
 
-  /*************
+  /**************
    *   Reset    *
    *************/
   const reset = (e) => {
@@ -125,7 +125,7 @@ function App() {
     beep.current.currentTime = 0;
   };
 
-  /******************
+  /*******************
    *   Format time   *
    ******************/
   let timer;
@@ -147,56 +147,81 @@ function App() {
   // `);
 
   return (
-    <>
-      <div className="options">
-        <div>
-          <span id="break-label">Break Length</span>
-          <br />
-          <button id="break-decrement" onClick={handleBreakLength} value="-">
-            BREAK DEC
-          </button>
-          <span id="break-length">{pause}</span>
-          <button id="break-increment" onClick={handleBreakLength} value="+">
-            BREAK INC
-          </button>
+    <div className="h-screen">
+      <div className="h-full mx-auto max-w-lg flex flex-col justify-center content-center bg-[url('pomodoro.png')] bg-no-repeat bg-center">
+        <div className="container flex justify-around">
+          <div className="flex">
+            {/* <span id="break-label">Break Length</span>
+            <br /> */}
+            <button
+              className="rounded-full border-orange-300 border-2"
+              id="break-decrement"
+              onClick={handleBreakLength}
+              value="-"
+            >
+              -
+            </button>
+            <span id="break-length">{pause}</span>
+            <button
+              className="rounded-full border-orange-300 border-2"
+              id="break-increment"
+              onClick={handleBreakLength}
+              value="+"
+            >
+              +
+            </button>
+          </div>
+          <div>
+            {/* <span id="session-label">Session Length</span>
+            <br /> */}
+            <button
+              className="rounded-full border-orange-300 border-2"
+              id="session-decrement"
+              onClick={handleSessionLength}
+              value="-"
+            >
+              -
+            </button>
+            <span id="session-length">{session}</span>
+            <button
+              className="rounded-full border-orange-300 border-2"
+              id="session-increment"
+              onClick={handleSessionLength}
+              value="+"
+            >
+              +
+            </button>
+          </div>
         </div>
-        <div>
-          <span id="session-label">Session Length</span>
-          <br />
-          <button
-            id="session-decrement"
-            onClick={handleSessionLength}
-            value="-"
-          >
-            SESSION DEC
-          </button>
-          <span id="session-length">{session}</span>
-          <button
-            id="session-increment"
-            onClick={handleSessionLength}
-            value="+"
-          >
-            SESSION INC
-          </button>
-        </div>
-      </div>
 
-      <div className="display">
-        <div>
-          <span id="timer-label">{breakTime ? "Session" : "Break"}</span>
-          <br />
-          <button id="start_stop" onClick={handleIsRunningClick}>
-            play/pause
-          </button>
-          <span id="time-left">{timer}</span>
-          <button id="reset" onClick={reset}>
-            reset
-          </button>
+        <div className="container flex justify-center">
+          <div className="flex flex-wrap">
+            <div className="flex basis-full">
+              <span id="timer-label">{breakTime ? "Session" : "Break"}</span>
+            </div>{" "}
+            <div className="basis-full flex justify-center">
+              <button
+                className="rounded-full border-orange-300 border-2"
+                id="start_stop"
+                onClick={handleIsRunningClick}
+              >
+                &gt; / ||
+              </button>
+              <span id="time-left">{timer}</span>
+              <button
+                className="rounded-full border-orange-300 border-2"
+                id="reset"
+                onClick={reset}
+              >
+                reset
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <audio id="beep" ref={beep} src={sound} />
-    </>
+        <audio id="beep" ref={beep} src={sound} />
+      </div>
+    </div>
   );
 }
 
